@@ -4,7 +4,7 @@ pipeline {
   environment {
     DOCKERHUB_USER = "arghyanil"      // your Docker Hub username
     IMAGE_NAME     = "jenkins_cicd"           // your Docker Hub repo name
-    CREDS_ID       = "dockerhub-creds"
+    CREDS_ID       = "dockerhub-credentials"
 
     TAG            = "${BUILD_NUMBER}"
 
@@ -27,16 +27,16 @@ pipeline {
     }
 
     stage('Login & Push') {
-      steps {
-        withCredentials([usernamePassword(credentialsId: "%CREDS_ID%", usernameVariable: 'U', passwordVariable: 'P')]) {
-          bat """
-            docker login -u %U% -p %P%
-            docker push %IMG_BUILD%
-            docker push %IMG_LATEST%
-          """
-        }
-      }
+  steps {
+    withCredentials([usernamePassword(credentialsId: "${CREDS_ID}", usernameVariable: 'U', passwordVariable: 'P')]) {
+      bat """
+        docker login -u %U% -p %P%
+        docker push %IMG_BUILD%
+        docker push %IMG_LATEST%
+      """
     }
+  }
+}
 
     stage('Cleanup ONLY This Build Image') {
       steps {
