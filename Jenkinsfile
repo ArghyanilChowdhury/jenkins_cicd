@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment {
-    DOCKERHUB_USER = "arghyanilryzen@gmail.com"      // your Docker Hub username
+    DOCKERHUB_USER = "arghyanil"      // your Docker Hub username
     IMAGE_NAME     = "jenkins_cicd"           // your Docker Hub repo name
     CREDS_ID       = "dockerhub-creds"
 
